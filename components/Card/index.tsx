@@ -11,13 +11,13 @@ const Card = ({ name, number, image, color }: ICard) => {
   return (
     <Box
       borderRadius={10}
-      padding={10}
+      padding={6}
       backgroundColor={`${color}.300` || "gray.400"}
       borderColor={`${color}.300` || "gray.400"}
       borderWidth="1px"
       cursor="pointer"
     >
-      <Box w={200} h={200}>
+      <Box w={100} h={100}>
         <Image src={image} objectFit="contain" />
       </Box>
       <Text>#{number}</Text>

@@ -1,9 +1,13 @@
 import { Box } from "@chakra-ui/react";
+import Footer from "./partials/Footer";
 
 const Layouts = ({ children }: any) => {
   return (
-    <Box maxWidth={480} margin="0 auto">
-      {children}
+    <Box>
+      <Box maxWidth={576} overflow="hidden" margin="0 auto" as="main">
+        {children}
+      </Box>
+      <Footer />
     </Box>
   );
 };

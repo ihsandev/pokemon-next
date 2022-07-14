@@ -24,7 +24,11 @@ const Pokemons = () => {
   const { data, error } = useQuery(QUERY_POKEMONS);
   return (
     <Layouts>
-      <Grid gridTemplateColumns={["1fr", "1fr 1fr"]} gap="1rem">
+      <Grid
+        gridTemplateColumns={["1fr", "1fr 1fr"]}
+        gap="1rem"
+        justifyContent="space-between"
+      >
         {data &&
           data.species.map((poke: any, index: number) => (
             <Card
