@@ -8,9 +8,16 @@ interface ICard {
 }
 
 const Card = ({ name, number, image, color }: ICard) => {
+  let newNumber = number;
+  const lengthNumber = String(number).length;
+  if (lengthNumber === 1) {
+    newNumber = `00${number}`;
+  } else if (lengthNumber === 2) {
+    newNumber = `0${number}`;
+  }
   return (
     <Box
-      borderRadius={10}
+      borderRadius={16}
       padding={6}
       backgroundColor={`${color}.300` || "gray.400"}
       borderColor={`${color}.300` || "gray.400"}
@@ -20,7 +27,7 @@ const Card = ({ name, number, image, color }: ICard) => {
       <Box w={100} h={100}>
         <Image src={image} objectFit="contain" />
       </Box>
-      <Text>#{number}</Text>
+      <Text>#{newNumber}</Text>
       <Heading>{name}</Heading>
     </Box>
   );

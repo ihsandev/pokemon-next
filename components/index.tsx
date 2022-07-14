@@ -1,3 +1,4 @@
 import Card from "./Card";
+import Seo from "./Seo";
 
-export { Card };
+export { Card, Seo };

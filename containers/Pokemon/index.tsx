@@ -21,7 +21,7 @@ const QUERY_POKEMONS = gql`
 `;
 
 const Pokemons = () => {
-  const { data, error } = useQuery(QUERY_POKEMONS);
+  const { data } = useQuery(QUERY_POKEMONS);
   return (
     <Layouts>
       <Grid
@@ -34,7 +34,7 @@ const Pokemons = () => {
             <Card
               key={index}
               name={poke.name}
-              number="001"
+              number={index + 1}
               color={poke.pokemon_v2_pokemoncolor.name}
               image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poke.id}.png`}
             />

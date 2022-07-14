@@ -4,7 +4,13 @@ import Footer from "./partials/Footer";
 const Layouts = ({ children }: any) => {
   return (
     <Box>
-      <Box maxWidth={576} overflow="hidden" margin="0 auto" as="main">
+      <Box
+        maxWidth={576}
+        overflow="hidden"
+        margin="0 auto"
+        as="main"
+        minH="100vh"
+      >
         {children}
       </Box>
       <Footer />

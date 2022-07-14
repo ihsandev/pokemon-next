@@ -1,5 +1,26 @@
 import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
+interface ILinkMenu {
+  label?: string;
+  to?: string;
+}
+
+const LinkMenu = ({ label, to }: ILinkMenu) => {
+  const { pathname } = useRouter();
+  return (
+    <Link href={to || "/"}>
+      <Text
+        flex={1}
+        padding="1rem"
+        backgroundColor={pathname === to ? "salmon" : "darkslategray"}
+      >
+        {label}
+      </Text>
+    </Link>
+  );
+};
 
 const Footer = () => {
   return (
@@ -14,16 +35,8 @@ const Footer = () => {
       cursor="pointer"
       color="white"
     >
-      <Link href="/">
-        <Text flex={1} padding="1rem">
-          List
-        </Text>
-      </Link>
-      <Link href="/my-list">
-        <Text flex={1} padding="1rem">
-          My List
-        </Text>
-      </Link>
+      <LinkMenu label="List" to="/" />
+      <LinkMenu label="My List" to="/my-list" />
     </Flex>
   );
 };
