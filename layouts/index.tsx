@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Footer from "./partials/Footer";
 
-const Layouts = ({ children }: any) => {
+const Layouts = ({ children, noFooter = false }: any) => {
   return (
     <>
       <Box
@@ -14,7 +14,7 @@ const Layouts = ({ children }: any) => {
       >
         {children}
       </Box>
-      <Footer />
+      {!noFooter && <Footer />}
     </>
   );
 };

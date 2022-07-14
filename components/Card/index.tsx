@@ -1,5 +1,6 @@
 import { Badge, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { PokemonTypeColor } from "../../utils";
+import Caption from "../Caption";
 
 interface ICard {
   name?: string;
@@ -7,9 +8,10 @@ interface ICard {
   image?: string;
   color?: { solid: string; transparent: string };
   types?: any[];
+  onClick?: () => void;
 }
 
-const Card = ({ name, number, image, color, types }: ICard) => {
+const Card = ({ name, number, image, color, types, onClick }: ICard) => {
   let newNumber = number;
   const lengthNumber = String(number).length;
   if (lengthNumber === 1) {
@@ -25,26 +27,12 @@ const Card = ({ name, number, image, color, types }: ICard) => {
       borderColor={color?.transparent}
       borderWidth="1px"
       cursor="pointer"
+      onClick={onClick}
     >
-      <Box w={100} h={100}>
-        <Image src={image} objectFit="contain" />
-      </Box>
-      <Text>#{newNumber}</Text>
-      <Heading>{name}</Heading>
-
-      {types && (
-        <Flex gap="0.5rem" mt="1rem">
-          {types?.map((type: any, i: number) => (
-            <Badge
-              key={i}
-              bgColor={PokemonTypeColor(type.type.name).solid}
-              textColor="white"
-            >
-              {type.type.name}
-            </Badge>
-          ))}
-        </Flex>
-      )}
+      <Flex justifyContent="center">
+        <Image src={image} objectFit="contain" w={125} h={125} />
+      </Flex>
+      <Caption number={newNumber} name={name} types={types} />
     </Box>
   );
 };

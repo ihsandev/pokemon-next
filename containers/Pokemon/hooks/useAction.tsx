@@ -1,9 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useAppContext from "../../../contexts";
 
 const QUERY_POKEMONS = gql`
-  query samplePokeAPIquery($limit: Int, $offset: Int) {
+  query getPokemon($limit: Int, $offset: Int) {
     species_aggregate: pokemon_v2_pokemonspecies_aggregate {
       aggregate {
         count
@@ -25,6 +26,7 @@ const QUERY_POKEMONS = gql`
 `;
 
 export default function useAction() {
+  const { push } = useRouter();
   const { state, dispatch } = useAppContext();
   const perPage = 20;
   const [limit, setLimit] = useState(perPage);
@@ -63,8 +65,11 @@ export default function useAction() {
     }
   }, [data]);
 
+  const pushRoute = (url: string) => push(url);
+
   return {
     data: state.pokemonList,
     loading,
+    pushRoute,
   };
 }

@@ -5,7 +5,7 @@ import { PokemonTypeColor } from "../../utils";
 import useAction from "./hooks/useAction";
 
 const Pokemons = () => {
-  const { data, loading } = useAction();
+  const { data, loading, pushRoute } = useAction();
   return (
     <Layouts>
       <Box paddingY="1.5rem">
@@ -22,6 +22,11 @@ const Pokemons = () => {
               return (
                 <Card
                   key={index}
+                  onClick={() =>
+                    pushRoute(
+                      `/detail/${poke.name}?type=${poke.pokemons[0]?.types[0]?.type?.name}`
+                    )
+                  }
                   name={poke.name}
                   number={index + 1}
                   color={color}

@@ -17,8 +17,8 @@ const LinkMenu = ({ label, to, counter }: ILinkMenu) => {
         padding="1rem"
         backgroundColor={pathname === to ? "salmon" : "darkslategray"}
         color={pathname === to ? "darkslategray" : "salmon"}
+        cursor="pointer"
         fontWeight="bold"
-        borderTopRadius="1rem"
       >
         {label}
         {counter && (

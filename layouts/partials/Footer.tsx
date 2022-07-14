@@ -9,12 +9,10 @@ const Footer = () => {
       maxW={576}
       margin="0 auto"
       position="sticky"
-      borderTopRadius="1rem"
       bottom={0}
       backgroundColor="darkslategray"
       justifyContent="center"
       textAlign="center"
-      cursor="pointer"
     >
       <LinkMenu
         label="List"
