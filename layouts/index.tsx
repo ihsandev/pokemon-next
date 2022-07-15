@@ -1,7 +1,10 @@
 import { Box } from "@chakra-ui/react";
+import Loading from "../components/Loading";
+import useAppContext from "../contexts";
 import Footer from "./partials/Footer";
 
 const Layouts = ({ children, noFooter = false }: any) => {
+  const { state } = useAppContext();
   return (
     <>
       <Box
@@ -15,6 +18,7 @@ const Layouts = ({ children, noFooter = false }: any) => {
         {children}
       </Box>
       {!noFooter && <Footer />}
+      <Loading show={state.loading} />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Box, Grid, Skeleton } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
-import { PokemonTypeColor } from "../../utils";
+import { baseImageUrl, PokemonTypeColor } from "../../utils";
 import useAction from "./hooks/useAction";
 
 const Pokemons = () => {
@@ -22,15 +22,11 @@ const Pokemons = () => {
               return (
                 <Card
                   key={index}
-                  onClick={() =>
-                    pushRoute(
-                      `/detail/${poke.name}?type=${poke.pokemons[0]?.types[0]?.type?.name}`
-                    )
-                  }
+                  onClick={() => pushRoute(`/detail/${poke.name}`)}
                   name={poke.name}
                   number={index + 1}
                   color={color}
-                  image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poke.id}.png`}
+                  image={`${baseImageUrl}${poke.id}.png`}
                   types={poke.pokemons[0]?.types}
                 />
               );

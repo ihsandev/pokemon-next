@@ -90,7 +90,6 @@ export default function useAction() {
   const { query } = useRouter();
   const { state, dispatch } = useAppContext();
   const name = query?.name;
-  const type = String(query?.type);
   const { data, loading } = useQuery(POKEMON_DETAIL, {
     variables: {
       name,
@@ -99,7 +98,17 @@ export default function useAction() {
     notifyOnNetworkStatusChange: true,
   });
 
-  const color = PokemonTypeColor(type);
+  const color = PokemonTypeColor(
+    data?.species[0]?.pokemons[0]?.types[0].type?.name
+  );
+
+  useEffect(() => {
+    if (loading) {
+      dispatch({ type: "SET_LOADING", payload: loading });
+    } else {
+      dispatch({ type: "SET_LOADING", payload: false });
+    }
+  }, [loading]);
 
   useEffect(() => {
     if (data) {

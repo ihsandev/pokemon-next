@@ -1,5 +1,4 @@
-import { Badge, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { PokemonTypeColor } from "../../utils";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import Caption from "../Caption";
 
 interface ICard {
@@ -8,7 +7,7 @@ interface ICard {
   image?: string;
   color?: { solid: string; transparent: string };
   types?: any[];
-  onClick?: () => void;
+  onClick?: any;
 }
 
 const Card = ({ name, number, image, color, types, onClick }: ICard) => {
@@ -26,7 +25,7 @@ const Card = ({ name, number, image, color, types, onClick }: ICard) => {
       backgroundColor={color?.transparent}
       borderColor={color?.transparent}
       borderWidth="1px"
-      cursor="pointer"
+      cursor={onClick && "pointer"}
       onClick={onClick}
     >
       <Flex justifyContent="center">

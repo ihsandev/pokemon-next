@@ -3,7 +3,8 @@ export type Action = {
     | "SET_POKEMON_LIST"
     | "SET_POKEMON_DETAIL"
     | "SET_MYPOKEMON"
-    | "SET_MYPOKEMON_DETAIL";
+    | "SET_MYPOKEMON_DETAIL"
+    | "SET_LOADING";
   payload: any;
 };
 export type Dispatch = (action: Action) => void;
@@ -12,5 +13,6 @@ export type State = {
   pokemonDetail?: any;
   myPokemon?: any;
   myPokemonDetail?: any;
+  loading?: boolean;
 };
 export type AppProviderProps = { children: React.ReactNode };

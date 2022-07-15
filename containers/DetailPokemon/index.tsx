@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   Image,
   Tab,
   TabList,
@@ -11,41 +10,42 @@ import {
 } from "@chakra-ui/react";
 import { Caption, Header } from "../../components";
 import Layouts from "../../layouts";
+import { baseImageUrl } from "../../utils";
 import useAction from "./hooks/useAction";
+import About from "./partials/About";
+import BaseStats from "./partials/BaseStats";
+import Evolutions from "./partials/Evolution";
 
 const DetailPokemon = () => {
   const { data, color, loading } = useAction();
-  const id = data?.species && data?.species[0]?.id;
-  const name = data?.species && data?.species[0]?.name;
-  const types = data?.species && data?.species[0]?.pokemons[0]?.types;
-  const description = data?.species && data?.species[0]?.description[0]?.text;
+  const species = data?.species && data?.species[0];
+
   return (
     <Layouts noFooter>
-      {!loading ? (
+      {!loading && (
         <Flex
           backgroundColor="white"
           flexDirection="column"
           flex={1}
           minH="100vh"
         >
-          <Header hasBack />
+          <Header backTo="/" />
           <Box
             backgroundColor={color.transparent}
             borderBottomRadius="3rem"
             minH={400}
-            mt={-16}
             flexDirection="column"
-            paddingX="3rem"
+            paddingX="4rem"
           >
             <Flex justifyContent="center" alignItems="center" mt="2rem">
               <Image
                 w={250}
                 objectFit="contain"
                 loading="lazy"
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+                src={`${baseImageUrl}${species?.id}.png`}
               />
             </Flex>
-            <Caption name={name} types={types} />
+            <Caption name={species?.name} types={species?.pokemons[0]?.types} />
           </Box>
           <Box pt="1rem" px="2rem">
             <Tabs variant="enclosed">
@@ -56,23 +56,26 @@ const DetailPokemon = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Heading size="md" mb="0.5rem">
-                    Description
-                  </Heading>
-                  <p>{description}</p>
+                  <About
+                    description={species?.description[0]?.text}
+                    pokemons={species?.pokemons[0]}
+                    genderRate={species?.gender_rate}
+                    hatchCounter={species?.hatch_counter}
+                  />
                 </TabPanel>
                 <TabPanel>
-                  <p>two!</p>
+                  <Evolutions evolutions={species?.evolutions} />
                 </TabPanel>
                 <TabPanel>
-                  <p>three!</p>
+                  <BaseStats
+                    stats={species?.pokemons[0]?.stats}
+                    color={color}
+                  />
                 </TabPanel>
               </TabPanels>
             </Tabs>
           </Box>
         </Flex>
-      ) : (
-        <Box>Loading....</Box>
       )}
     </Layouts>
   );

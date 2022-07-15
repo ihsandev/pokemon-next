@@ -8,8 +8,10 @@ const Footer = () => {
     <Flex
       maxW={576}
       margin="0 auto"
-      position="sticky"
+      position="fixed"
       bottom={0}
+      left={0}
+      right={0}
       backgroundColor="darkslategray"
       justifyContent="center"
       textAlign="center"

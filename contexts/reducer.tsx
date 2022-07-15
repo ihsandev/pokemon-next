@@ -5,6 +5,7 @@ export const initialState = {
   pokemonDetail: {},
   myPokemon: [],
   myPokemonDetail: {},
+  loading: false,
 };
 
 const reducer = (state: State = initialState, action: Action) => {
@@ -28,6 +29,11 @@ const reducer = (state: State = initialState, action: Action) => {
       return {
         ...state,
         myPokemonDetail: action.payload,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;

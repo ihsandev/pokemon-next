@@ -3,22 +3,31 @@ import { useRouter } from "next/router";
 import { FiArrowLeftCircle } from "react-icons/fi";
 
 interface IHeader {
-  hasBack?: boolean;
+  backTo?: string;
 }
 
-const Header = ({ hasBack }: IHeader) => {
-  const { back } = useRouter();
+const Header = ({ backTo }: IHeader) => {
+  const { push } = useRouter();
   return (
     <Box
       as="header"
-      position="sticky"
+      position="fixed"
       top={0}
+      left={0}
+      right={0}
+      maxW={576}
+      margin="0 auto"
       zIndex={99}
       backgroundColor="transparent"
     >
       <Flex>
-        {hasBack && (
-          <Box p="0.5rem" cursor="pointer" onClick={() => back()}>
+        {backTo && (
+          <Box
+            ml="1rem"
+            p="0.5rem"
+            cursor="pointer"
+            onClick={() => push(backTo)}
+          >
             <FiArrowLeftCircle size={40} color="white" />
           </Box>
         )}
