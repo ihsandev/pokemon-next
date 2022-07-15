@@ -1,8 +1,15 @@
-import { Badge, Box, Flex, Tooltip, useDisclosure } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Tooltip,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FiArrowLeftCircle, FiFilter } from "react-icons/fi";
+import { FiArrowLeftCircle, FiFilter, FiMinimize2 } from "react-icons/fi";
 import useAppContext from "../../contexts";
-import Filter from "../Filter";
+import Filter from "../../containers/Filter";
 
 interface IHeader {
   backTo?: string;
@@ -25,7 +32,7 @@ const Header = ({ backTo }: IHeader) => {
       zIndex={99}
       backgroundColor={backTo ? "transparent" : "white"}
     >
-      <Flex>
+      <Flex justifyContent={!backTo ? "flex-end" : "flex-start"}>
         {backTo ? (
           <Box
             ml="1rem"
@@ -37,12 +44,17 @@ const Header = ({ backTo }: IHeader) => {
           </Box>
         ) : (
           <>
+            <Tooltip hasArrow label="Compare">
+              <Box cursor="pointer" padding="0.7rem">
+                <FiMinimize2 size={25} />
+              </Box>
+            </Tooltip>
             <Tooltip hasArrow label="Filter">
               <Box
-                padding="0.7rem"
                 cursor="pointer"
                 onClick={onOpen}
                 position="relative"
+                padding="0.7rem"
               >
                 {countFilter > 0 && (
                   <Badge

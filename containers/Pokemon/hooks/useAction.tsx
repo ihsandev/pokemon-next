@@ -6,7 +6,8 @@ import { addToLocalStorage, getFromLocalStorage } from "../../../utils";
 import useActionContainer from "../../hooks/useAction";
 
 export default function useAction() {
-  const { removeFromMyList, pushRoute } = useActionContainer();
+  const { removeFromMyList, pushRoute, handleFilterSubmit } =
+    useActionContainer();
   const { state, dispatch } = useAppContext();
   const perPage = 20;
   const [limit, setLimit] = useState(perPage);
@@ -42,7 +43,7 @@ export default function useAction() {
   });
 
   useEffect(() => {
-    if (data) {
+    if (state.generations?.length === 0 && state.types?.length === 0 && data) {
       dispatch({ type: "SET_POKEMON_LIST", payload: data });
       dispatch({ type: "SET_TYPES", payload: [] });
       dispatch({ type: "SET_GENERATIONS", payload: [] });
@@ -74,6 +75,21 @@ export default function useAction() {
     }
     return addToMyList(poke);
   };
+
+  const getFilter = () => {
+    const storage = getFromLocalStorage("filter");
+    if (storage) {
+      dispatch({ type: "SET_GENERATIONS", payload: storage.generations });
+      dispatch({ type: "SET_TYPES", payload: storage.types });
+    }
+  };
+
+  useEffect(() => {
+    getFilter();
+    if (state.generations?.length || state.types?.length) {
+      handleFilterSubmit();
+    }
+  }, [data]);
 
   const checkIsBookmark = (name: string) => {
     let result = false;

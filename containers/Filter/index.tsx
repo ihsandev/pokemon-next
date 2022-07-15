@@ -14,7 +14,7 @@ import {
 import useAction from "./hooks/useAction";
 
 const Filter = ({ isOpen, onClose }: any) => {
-  const { generations, types, handleFilterCheck, handleFilterSubmit, state } =
+  const { generations, types, handleFilterCheck, state, handleFilterSubmit } =
     useAction();
   if (!isOpen) return null;
   const renderCheckBox = (data: any = []) => {
