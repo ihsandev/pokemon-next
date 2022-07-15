@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { MyPokemon } from "../containers";
+import { MyPokemon } from "../../containers";
 
 const MyList: NextPage = () => <MyPokemon />;
 

@@ -12,8 +12,9 @@ const Footer = () => {
       bottom={0}
       left={0}
       right={0}
-      backgroundColor="darkslategray"
+      zIndex={99}
       justifyContent="center"
+      backgroundColor="black"
       textAlign="center"
     >
       <LinkMenu
@@ -21,7 +22,11 @@ const Footer = () => {
         to="/"
         counter={state?.pokemonList?.species_aggregate?.aggregate?.count}
       />
-      <LinkMenu label="My List" to="/my-list" />
+      <LinkMenu
+        label="My List"
+        to="/my-list"
+        counter={state.myPokemons?.length}
+      />
     </Flex>
   );
 };

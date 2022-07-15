@@ -3,7 +3,7 @@ import { Action, State } from "./contexts.types";
 export const initialState = {
   pokemonList: [],
   pokemonDetail: {},
-  myPokemon: [],
+  myPokemons: [],
   myPokemonDetail: {},
   loading: false,
 };
@@ -23,7 +23,7 @@ const reducer = (state: State = initialState, action: Action) => {
     case "SET_MYPOKEMON":
       return {
         ...state,
-        myPokemon: action.payload,
+        myPokemons: action.payload,
       };
     case "SET_MYPOKEMON_DETAIL":
       return {

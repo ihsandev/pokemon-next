@@ -5,7 +5,8 @@ import { baseImageUrl, PokemonTypeColor } from "../../utils";
 import useAction from "./hooks/useAction";
 
 const Pokemons = () => {
-  const { data, loading, pushRoute } = useAction();
+  const { data, loading, pushRoute, handleOnBookmark, checkIsBookmark } =
+    useAction();
   return (
     <Layouts>
       <Box paddingY="1.5rem">
@@ -16,18 +17,21 @@ const Pokemons = () => {
         >
           {data?.species?.length ? (
             data?.species?.map((poke: any, index: number) => {
+              const isBookmark = checkIsBookmark(poke.name);
               const color = PokemonTypeColor(
                 poke.pokemons[0]?.types[0]?.type?.name
               );
               return (
                 <Card
                   key={index}
-                  onClick={() => pushRoute(`/detail/${poke.name}`)}
+                  onClick={() => pushRoute(`/list/${poke.name}`)}
                   name={poke.name}
                   number={index + 1}
                   color={color}
                   image={`${baseImageUrl}${poke.id}.png`}
                   types={poke.pokemons[0]?.types}
+                  onBookmark={() => handleOnBookmark(poke)}
+                  isBookmark={isBookmark}
                 />
               );
             })

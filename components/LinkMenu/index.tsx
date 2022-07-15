@@ -5,23 +5,24 @@ import { useRouter } from "next/router";
 interface ILinkMenu {
   label?: string;
   to?: string;
-  counter?: number | string;
+  counter?: any;
 }
 
-const LinkMenu = ({ label, to, counter }: ILinkMenu) => {
+const LinkMenu = ({ label, to, counter, ...rest }: ILinkMenu) => {
   const { pathname } = useRouter();
   return (
     <Link href={to || "/"}>
       <Text
+        {...rest}
         flex={1}
         padding="1rem"
-        backgroundColor={pathname === to ? "salmon" : "darkslategray"}
-        color={pathname === to ? "darkslategray" : "salmon"}
+        backgroundColor="gray.800"
+        color={pathname === to ? "salmon" : "gray.300"}
         cursor="pointer"
-        fontWeight="bold"
+        fontWeight="medium"
       >
         {label}
-        {counter && (
+        {counter > 0 && (
           <Box as="span" ml="0.5rem" fontSize="0.8rem">
             ({counter})
           </Box>

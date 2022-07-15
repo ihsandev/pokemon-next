@@ -11,7 +11,7 @@ export type Dispatch = (action: Action) => void;
 export type State = {
   pokemonList?: any;
   pokemonDetail?: any;
-  myPokemon?: any;
+  myPokemons?: any;
   myPokemonDetail?: any;
   loading?: boolean;
 };

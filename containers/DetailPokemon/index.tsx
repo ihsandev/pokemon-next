@@ -8,6 +8,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { Caption, Header } from "../../components";
 import Layouts from "../../layouts";
 import { baseImageUrl } from "../../utils";
@@ -17,6 +18,7 @@ import BaseStats from "./partials/BaseStats";
 import Evolutions from "./partials/Evolution";
 
 const DetailPokemon = () => {
+  const { pathname } = useRouter();
   const { data, color, loading } = useAction();
   const species = data?.species && data?.species[0];
 
@@ -29,7 +31,7 @@ const DetailPokemon = () => {
           flex={1}
           minH="100vh"
         >
-          <Header backTo="/" />
+          <Header backTo={pathname === "/my-list/[name]" ? "/my-list" : "/"} />
           <Box
             backgroundColor={color.transparent}
             borderBottomRadius="3rem"
