@@ -4,8 +4,9 @@ export const initialState = {
   pokemonList: [],
   pokemonDetail: {},
   myPokemons: [],
-  myPokemonDetail: {},
   loading: false,
+  generations: [],
+  types: [],
 };
 
 const reducer = (state: State = initialState, action: Action) => {
@@ -25,10 +26,15 @@ const reducer = (state: State = initialState, action: Action) => {
         ...state,
         myPokemons: action.payload,
       };
-    case "SET_MYPOKEMON_DETAIL":
+    case "SET_GENERATIONS":
       return {
         ...state,
-        myPokemonDetail: action.payload,
+        generations: action.payload,
+      };
+    case "SET_TYPES":
+      return {
+        ...state,
+        types: action.payload,
       };
     case "SET_LOADING":
       return {

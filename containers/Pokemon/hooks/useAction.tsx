@@ -1,31 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import useAppContext from "../../../contexts";
+import { QUERY_POKEMONS } from "../../../graphql";
 import { addToLocalStorage, getFromLocalStorage } from "../../../utils";
 import useActionContainer from "../../hooks/useAction";
-
-const QUERY_POKEMONS = gql`
-  query getPokemon($limit: Int, $offset: Int) {
-    species_aggregate: pokemon_v2_pokemonspecies_aggregate {
-      aggregate {
-        count
-      }
-    }
-    species: pokemon_v2_pokemonspecies(limit: $limit, offset: $offset) {
-      name
-      id
-      pokemons: pokemon_v2_pokemons {
-        id
-        types: pokemon_v2_pokemontypes {
-          type: pokemon_v2_type {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
 
 export default function useAction() {
   const { removeFromMyList, pushRoute } = useActionContainer();
@@ -57,13 +35,17 @@ export default function useAction() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (state.generations?.length === 0 && state.types?.length === 0) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   });
 
   useEffect(() => {
     if (data) {
       dispatch({ type: "SET_POKEMON_LIST", payload: data });
+      dispatch({ type: "SET_TYPES", payload: [] });
+      dispatch({ type: "SET_GENERATIONS", payload: [] });
     }
   }, [data]);
 

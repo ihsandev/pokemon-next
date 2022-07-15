@@ -1,4 +1,5 @@
 import { Box, Grid, Skeleton } from "@chakra-ui/react";
+import { Header } from "../../components";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
 import { baseImageUrl, PokemonTypeColor } from "../../utils";
@@ -9,7 +10,8 @@ const Pokemons = () => {
     useAction();
   return (
     <Layouts>
-      <Box paddingY="1.5rem">
+      <Header />
+      <Box paddingY="4rem">
         <Grid
           gridTemplateColumns={["1fr", "1fr 1fr"]}
           gap="1rem"

@@ -17,7 +17,7 @@ const LinkMenu = ({ label, to, counter, ...rest }: ILinkMenu) => {
         flex={1}
         padding="1rem"
         backgroundColor="gray.800"
-        color={pathname === to ? "salmon" : "gray.300"}
+        color={pathname === to ? "yellow" : "gray.300"}
         cursor="pointer"
         fontWeight="medium"
       >
