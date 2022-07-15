@@ -1,14 +1,11 @@
-import { Box, Flex, Grid, Heading, Skeleton } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Box, Flex, Grid, Heading } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
 import { baseImageUrl, PokemonTypeColor } from "../../utils";
 import useAction from "./hooks/useAction";
 
 const MyPokemons = () => {
-  const { data } = useAction();
-  const { push } = useRouter();
-  console.log(data);
+  const { data, removeFromMyList, pushRoute } = useAction();
   return (
     <Layouts>
       <Box paddingY="1.5rem">
@@ -25,12 +22,13 @@ const MyPokemons = () => {
               return (
                 <Card
                   key={index}
-                  onClick={() => push(`/my-list/${poke.name}`)}
+                  onClick={() => pushRoute(`/my-list/${poke.name}`)}
                   name={poke.name}
                   number={index + 1}
                   color={color}
                   image={`${baseImageUrl}${poke.id}.png`}
                   types={poke.pokemons[0]?.types}
+                  onDelete={() => removeFromMyList(poke.id)}
                 />
               );
             })}

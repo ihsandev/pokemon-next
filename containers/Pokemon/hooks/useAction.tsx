@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useAppContext from "../../../contexts";
 import { addToLocalStorage, getFromLocalStorage } from "../../../utils";
+import useActionContainer from "../../hooks/useAction";
 
 const QUERY_POKEMONS = gql`
   query getPokemon($limit: Int, $offset: Int) {
@@ -27,7 +28,7 @@ const QUERY_POKEMONS = gql`
 `;
 
 export default function useAction() {
-  const { push, query } = useRouter();
+  const { removeFromMyList, pushRoute } = useActionContainer();
   const { state, dispatch } = useAppContext();
   const perPage = 20;
   const [limit, setLimit] = useState(perPage);
@@ -66,25 +67,12 @@ export default function useAction() {
     }
   }, [data]);
 
-  const pushRoute = (url: string) => push(url);
-
   const addToMyList = (data?: any) => {
     const storage = getFromLocalStorage("myPokemons");
     const newData = storage ? [...storage] : [];
     newData.push(data);
     dispatch({ type: "SET_MYPOKEMON", payload: newData });
     addToLocalStorage("myPokemons", newData);
-  };
-
-  const removeFromMyList = (id: number) => {
-    const storage = getFromLocalStorage("myPokemons");
-    if (storage) {
-      const newData = storage?.filter(
-        (item: any) => String(item.id) !== String(id)
-      );
-      addToLocalStorage("myPokemons", newData);
-      dispatch({ type: "SET_MYPOKEMON", payload: newData });
-    }
   };
 
   const getDataMyList = () => {
