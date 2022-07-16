@@ -7,9 +7,14 @@ const About = ({ description, pokemons, genderRate, hatchCounter }: any) => {
         <Heading size="md" mb="0.5rem">
           Description
         </Heading>
-        <p>{description}</p>
+        <Text fontSize={["0.8rem", "1rem"]}>{description}</Text>
       </Box>
-      <Flex mt="1rem" flexDirection="column" gap="1.5rem">
+      <Flex
+        mt="1rem"
+        flexDirection="column"
+        gap={["1rem", "1.5rem"]}
+        fontSize={["0.7rem", "1rem"]}
+      >
         <Flex>
           <Text flex={1} fontWeight="semibold" color="gray.500">
             Height

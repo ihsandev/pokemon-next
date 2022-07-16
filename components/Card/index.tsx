@@ -1,6 +1,9 @@
-import { Box, Flex, Image, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import Caption from "../Caption";
-import { FiBookmark, FiDelete } from "react-icons/fi";
+import CheckboxCompare from "./partials/CheckboxCompare";
+import Bookmark from "./partials/Bookmark";
+import DeleteBookmark from "./partials/DeleteBookmark";
+import useAppContext from "../../contexts";
 
 interface ICard {
   name?: string;
@@ -12,6 +15,8 @@ interface ICard {
   onBookmark?: any;
   isBookmark?: boolean;
   onDelete?: any;
+  onCompare?: any;
+  isCheckCompare?: boolean;
 }
 
 const Card = ({
@@ -24,7 +29,10 @@ const Card = ({
   onBookmark,
   isBookmark,
   onDelete,
+  onCompare,
+  isCheckCompare,
 }: ICard) => {
+  const { state } = useAppContext();
   let newNumber = number;
   const lengthNumber = String(number).length;
   if (lengthNumber === 1) {
@@ -35,37 +43,15 @@ const Card = ({
   return (
     <Box position="relative">
       {onBookmark && (
-        <Tooltip
-          hasArrow
-          label={isBookmark ? "Remove From My List" : "Add To My List"}
-          bg="gray.800"
-          color="gray.100"
-        >
-          <Box
-            position="absolute"
-            top="1rem"
-            right="1rem"
-            cursor="pointer"
-            zIndex={10}
-            onClick={onBookmark}
-          >
-            <FiBookmark size={35} fill={isBookmark ? "gray.800" : "none"} />
-          </Box>
-        </Tooltip>
+        <Bookmark isBookmark={isBookmark} onBookmark={onBookmark} />
       )}
-      {onDelete && (
-        <Box
-          position="absolute"
-          top="1rem"
-          right="1rem"
-          cursor="pointer"
-          _hover={{ "> svg": { color: "red" } }}
-          zIndex={10}
-          onClick={onDelete}
-        >
-          <FiDelete size={35} />
-        </Box>
+      {onCompare && state.isCompare && (
+        <CheckboxCompare
+          onCompare={onCompare}
+          isCheckCompare={isCheckCompare}
+        />
       )}
+      {onDelete && <DeleteBookmark onDelete={onDelete} />}
       <Box
         borderRadius="1rem"
         padding={6}

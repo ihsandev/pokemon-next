@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import client from "../../configs/apollo-client";
 import useAppContext from "../../contexts";
 import {
@@ -15,14 +16,33 @@ export default function useActionContainer() {
 
   const pushRoute = (url: string) => push(url);
 
-  const removeFromMyList = (id: number) => {
-    const storage = getFromLocalStorage("myPokemons");
+  const addToStorage = (params: any, type: any, name: string) => {
+    const storage = getFromLocalStorage(name);
+    const newData = storage ? [...storage] : [];
+    newData.push(params);
+    dispatch({ type, payload: newData });
+    addToLocalStorage(name, newData);
+  };
+
+  const removeFromStorage = (id: number, type: any, name: string) => {
+    const storage = getFromLocalStorage(name);
     if (storage) {
       const newData = storage?.filter(
         (item: any) => String(item.id) !== String(id)
       );
-      addToLocalStorage("myPokemons", newData);
-      dispatch({ type: "SET_MYPOKEMON", payload: newData });
+      addToLocalStorage(name, newData);
+      dispatch({ type, payload: newData });
+    }
+  };
+
+  const removeFromMyList = (id: number) => {
+    removeFromStorage(id, "SET_MYPOKEMON", "myPokemons");
+  };
+
+  const getCompare = () => {
+    const storage = getFromLocalStorage("compares");
+    if (storage) {
+      dispatch({ type: "SET_COMPARES", payload: storage });
     }
   };
 
@@ -71,5 +91,8 @@ export default function useActionContainer() {
     pushRoute,
     removeFromMyList,
     handleFilterSubmit,
+    addToStorage,
+    removeFromStorage,
+    getCompare,
   };
 }

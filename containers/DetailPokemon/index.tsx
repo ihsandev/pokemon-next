@@ -9,13 +9,16 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Caption, Header } from "../../components";
+import {
+  About,
+  BaseStats,
+  Caption,
+  Evolutions,
+  Header,
+} from "../../components";
 import Layouts from "../../layouts";
 import { baseImageUrl } from "../../utils";
 import useAction from "./hooks/useAction";
-import About from "./partials/About";
-import BaseStats from "./partials/BaseStats";
-import Evolutions from "./partials/Evolution";
 
 const DetailPokemon = () => {
   const { pathname } = useRouter();

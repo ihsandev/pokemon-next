@@ -1,13 +1,32 @@
-import { Box, Grid, Skeleton } from "@chakra-ui/react";
-import { Header } from "../../components";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Skeleton,
+} from "@chakra-ui/react";
+import { FiArrowRight } from "react-icons/fi";
+import { CompareView, Header } from "../../components";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
 import { baseImageUrl, PokemonTypeColor } from "../../utils";
 import useAction from "./hooks/useAction";
 
 const Pokemons = () => {
-  const { data, loading, pushRoute, handleOnBookmark, checkIsBookmark } =
-    useAction();
+  const {
+    data,
+    loading,
+    pushRoute,
+    handleOnBookmark,
+    checkIsBookmark,
+    checkIsCompare,
+    addToCompare,
+    removeCompare,
+    isCheckCompare,
+    compares,
+  } = useAction();
   return (
     <Layouts>
       <Header />
@@ -34,6 +53,12 @@ const Pokemons = () => {
                   types={poke.pokemons[0]?.types}
                   onBookmark={() => handleOnBookmark(poke)}
                   isBookmark={isBookmark}
+                  onCompare={() => {
+                    checkIsCompare(poke.id)
+                      ? removeCompare(poke.id)
+                      : addToCompare({ id: poke.id, name: poke.name });
+                  }}
+                  isCheckCompare={checkIsCompare(poke.id)}
                 />
               );
             })
@@ -53,6 +78,7 @@ const Pokemons = () => {
           )}
         </Grid>
       </Box>
+      {isCheckCompare && <CompareView />}
     </Layouts>
   );
 };

@@ -2,12 +2,18 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import useAppContext from "../../../contexts";
 import { QUERY_POKEMONS } from "../../../graphql";
-import { addToLocalStorage, getFromLocalStorage } from "../../../utils";
+import { getFromLocalStorage } from "../../../utils";
 import useActionContainer from "../../hooks/useAction";
 
 export default function useAction() {
-  const { removeFromMyList, pushRoute, handleFilterSubmit } =
-    useActionContainer();
+  const {
+    removeFromMyList,
+    pushRoute,
+    handleFilterSubmit,
+    removeFromStorage,
+    addToStorage,
+    getCompare,
+  } = useActionContainer();
   const { state, dispatch } = useAppContext();
   const perPage = 20;
   const [limit, setLimit] = useState(perPage);
@@ -51,11 +57,7 @@ export default function useAction() {
   }, [data]);
 
   const addToMyList = (data?: any) => {
-    const storage = getFromLocalStorage("myPokemons");
-    const newData = storage ? [...storage] : [];
-    newData.push(data);
-    dispatch({ type: "SET_MYPOKEMON", payload: newData });
-    addToLocalStorage("myPokemons", newData);
+    addToStorage(data, "SET_MYPOKEMON", "myPokemons");
   };
 
   const getDataMyList = () => {
@@ -68,6 +70,13 @@ export default function useAction() {
   useEffect(() => {
     getDataMyList();
   }, []);
+
+  useEffect(() => {
+    getCompare();
+    if (state.compares?.length > 0) {
+      dispatch({ type: "SET_ISCOMPARE", payload: true });
+    }
+  }, [data]);
 
   const handleOnBookmark = (poke: any) => {
     if (checkIsBookmark(poke.name)) {
@@ -104,11 +113,39 @@ export default function useAction() {
     return result;
   };
 
+  const checkIsCompare = (id: string) => {
+    let result = false;
+    if (typeof window !== "undefined") {
+      const storage = getFromLocalStorage("compares");
+      result = storage?.some((item: any) => String(item["id"]) === String(id));
+    }
+    return result;
+  };
+
+  const addToCompare = (params: any) => {
+    if (state.compares.length < 2) {
+      addToStorage(params, "SET_COMPARES", "compares");
+    }
+  };
+
+  const removeCompare = (idPoke: number) => {
+    if (state.compares.length < 3) {
+      removeFromStorage(idPoke, "SET_COMPARES", "compares");
+    }
+  };
+
+  const isCheckCompare = state.compares.length > 0;
+
   return {
     data: state.pokemonList,
     loading,
     handleOnBookmark,
     pushRoute,
     checkIsBookmark,
+    checkIsCompare,
+    addToCompare,
+    removeCompare,
+    isCheckCompare,
+    compares: state.compares,
   };
 }

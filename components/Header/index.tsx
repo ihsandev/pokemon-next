@@ -1,15 +1,9 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  Tooltip,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Badge, Box, Flex, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FiArrowLeftCircle, FiFilter, FiMinimize2 } from "react-icons/fi";
 import useAppContext from "../../contexts";
 import Filter from "../../containers/Filter";
+import { addToLocalStorage } from "../../utils";
 
 interface IHeader {
   backTo?: string;
@@ -18,7 +12,7 @@ interface IHeader {
 const Header = ({ backTo }: IHeader) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { push } = useRouter();
-  const { state }: any = useAppContext();
+  const { state, dispatch } = useAppContext();
   const countFilter = [...state.generations, ...state.types]?.length;
   return (
     <Box
@@ -44,9 +38,21 @@ const Header = ({ backTo }: IHeader) => {
           </Box>
         ) : (
           <>
-            <Tooltip hasArrow label="Compare">
-              <Box cursor="pointer" padding="0.7rem">
-                <FiMinimize2 size={25} />
+            <Tooltip hasArrow label={state.isCompare ? "UnCompare" : "Compare"}>
+              <Box
+                cursor="pointer"
+                padding="0.7rem"
+                onClick={() => {
+                  if (state.isCompare) {
+                    dispatch({ type: "SET_ISCOMPARE", payload: false });
+                    dispatch({ type: "SET_COMPARES", payload: [] });
+                    addToLocalStorage("compares", []);
+                  } else {
+                    dispatch({ type: "SET_ISCOMPARE", payload: true });
+                  }
+                }}
+              >
+                <FiMinimize2 size={25} color={state.isCompare ? "red" : ""} />
               </Box>
             </Tooltip>
             <Tooltip hasArrow label="Filter">

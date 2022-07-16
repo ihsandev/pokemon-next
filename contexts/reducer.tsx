@@ -7,6 +7,8 @@ export const initialState = {
   loading: false,
   generations: [],
   types: [],
+  compares: [],
+  isCompare: false,
 };
 
 const reducer = (state: State = initialState, action: Action) => {
@@ -35,6 +37,16 @@ const reducer = (state: State = initialState, action: Action) => {
       return {
         ...state,
         types: action.payload,
+      };
+    case "SET_COMPARES":
+      return {
+        ...state,
+        compares: action.payload,
+      };
+    case "SET_ISCOMPARE":
+      return {
+        ...state,
+        isCompare: action.payload,
       };
     case "SET_LOADING":
       return {

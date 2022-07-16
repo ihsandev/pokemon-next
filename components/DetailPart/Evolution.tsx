@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { Card } from "../../../components";
-import { baseImageUrl } from "../../../utils";
+import { Card } from "..";
+import { baseImageUrl } from "../../utils";
 import { FiArrowDown } from "react-icons/fi";
 import { useRouter } from "next/router";
 
