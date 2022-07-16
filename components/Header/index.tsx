@@ -61,6 +61,7 @@ const Header = ({ backTo }: IHeader) => {
                 onClick={onOpen}
                 position="relative"
                 padding="0.7rem"
+                mr="0.5rem"
               >
                 {countFilter > 0 && (
                   <Badge

@@ -8,7 +8,7 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { FiArrowRight } from "react-icons/fi";
-import { CompareView, Header } from "../../components";
+import { CompareView, Header, Seo } from "../../components";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
 import { baseImageUrl, PokemonTypeColor } from "../../utils";
@@ -28,6 +28,7 @@ const Pokemons = () => {
   } = useAction();
   return (
     <Layouts>
+      <Seo title="Pokemons" description="List Pokemons" />
       <Header />
       <Box paddingY="4rem">
         <Grid

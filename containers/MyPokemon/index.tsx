@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Heading } from "@chakra-ui/react";
+import { Seo } from "../../components";
 import Card from "../../components/Card";
 import Layouts from "../../layouts";
 import { baseImageUrl, PokemonTypeColor } from "../../utils";
@@ -8,6 +9,7 @@ const MyPokemons = () => {
   const { data, removeFromMyList, pushRoute } = useAction();
   return (
     <Layouts>
+      <Seo title="My Pokemons" description="List My Pokemons" />
       <Box paddingY="1.5rem">
         {data?.length ? (
           <Grid

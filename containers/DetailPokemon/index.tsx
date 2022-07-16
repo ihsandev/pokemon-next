@@ -15,6 +15,7 @@ import {
   Caption,
   Evolutions,
   Header,
+  Seo,
 } from "../../components";
 import Layouts from "../../layouts";
 import { baseImageUrl } from "../../utils";
@@ -27,6 +28,7 @@ const DetailPokemon = () => {
 
   return (
     <Layouts noFooter>
+      <Seo title={species?.name} description={species?.description[0]?.text} />
       {!loading && (
         <Flex
           backgroundColor="white"
