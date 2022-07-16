@@ -16,7 +16,7 @@ const Evolutions = ({ evolutions }: any) => {
               image={`${baseImageUrl}${item.id}.png`}
               onClick={
                 item.name !== query.name
-                  ? () => push(`/detail/${item.name}`)
+                  ? () => push(`/list/${item.name}`)
                   : null
               }
             />

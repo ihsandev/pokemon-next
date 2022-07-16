@@ -25,7 +25,6 @@ const Pokemons = () => {
     addToCompare,
     removeCompare,
     isCheckCompare,
-    compares,
   } = useAction();
   return (
     <Layouts>
